@@ -1,5 +1,6 @@
 /*
  * Copyright © 2025 Clyso GmbH
+ * Copyright © 2025 STRATO GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +33,7 @@ import (
 )
 
 var consistencyReportCmd = &cobra.Command{
-	Use:   "consistency report <storage_1>:<bucket_1> <storage_2>:<bucket_2>",
+	Use:   "report",
 	Short: "list consistency checks",
 	Long: `Example:
 chorctl consistency report oldstorage:bucket newstorage:altbucket`,

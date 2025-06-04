@@ -1,5 +1,6 @@
 /*
  * Copyright © 2025 Clyso GmbH
+ * Copyright © 2025 STRATO GmbH
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +35,7 @@ var (
 )
 
 var consistencyCheckCmd = &cobra.Command{
-	Use:   "consistency check <storage_1>:<bucket_1> <storage_2>:<bucket_2> --user user  ...",
+	Use:   "check",
 	Short: "start consistency check",
 	Long: `Example:
 chorctl consistency check oldstorage:bucket newstorage:altbucket --user username`,
