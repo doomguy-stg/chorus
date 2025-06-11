@@ -30,6 +30,7 @@ import (
 	"github.com/minio/minio-go/v7"
 	"github.com/redis/go-redis/v9"
 	"github.com/stretchr/testify/require"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 const (
@@ -436,4 +437,39 @@ func TestConsistency_2Storages_WrongEtag_Failure(t *testing.T) {
 	r.Len(checkEntries.Entries[0].Storages, 1)
 	r.Len(checkEntries.Entries[1].Storages, 1)
 	r.NotEqual(checkEntries.Entries[0].Storages[0], checkEntries.Entries[1].Storages[0])
+}
+
+func TestConsistencyApi_ListAddPurge(t *testing.T) {
+	locations := []*pb.MigrateLocation{
+		{
+			Storage: ConsistencyCheckStorage1,
+			Bucket:  ConsistencyCheckBucket1,
+			User:    user,
+		},
+		{
+			Storage: ConsistencyCheckStorage2,
+			Bucket:  ConsistencyCheckBucket2,
+			User:    user,
+		},
+	}
+
+	r := require.New(t)
+	ctx := context.WithoutCancel(tstCtx)
+	consistencyCheckSetup2Storages(ctx, r)
+	defer consistencyCheckTeardown2Storages(ctx, r, locations)
+
+	rsp, err := apiClient.ListConsistencyChecks(ctx, &emptypb.Empty{});
+	r.NoError(err)
+	r.Nil(rsp.Checks)
+
+	checkRequest := &pb.ConsistencyCheckRequest{
+		Locations: locations,
+	}
+	_, err = apiClient.StartConsistencyCheck(ctx, checkRequest)
+	r.NoError(err)
+
+	rsp, err = apiClient.ListConsistencyChecks(ctx, &emptypb.Empty{});
+	r.NoError(err)
+	r.NotNil(rsp.Checks)
+	r.Len(rsp.Checks, 1)
 }
