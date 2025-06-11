@@ -34,9 +34,12 @@ var (
 )
 
 var consistencyCheckCmd = &cobra.Command{
-	Use:   "consistency check <storage_1>:<bucket_1> <storage_2>:<bucket_2> --user user  ...",
+	Use:   "check",
 	Short: "start consistency check",
-	Long: `Example:
+	Long: `At least two bucket locations have to be provided.
+Checking 3 or more buckets is possible. The flag '--user' is required.
+
+Example:
 chorctl consistency check oldstorage:bucket newstorage:altbucket --user username`,
 	Args: cobra.MinimumNArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {

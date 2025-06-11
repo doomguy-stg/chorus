@@ -30,7 +30,7 @@ import (
 )
 
 var consistencyPurgeCmd = &cobra.Command{
-	Use:   "consistency purge <storage_1>:<bucket_1> <storage_2>:<bucket_2>",
+	Use:   "purge",
 	Short: "deletes result of consistency check",
 	Long: `Example:
 chorctl consistency purge oldstorage:bucket newstorage:altbucket`,

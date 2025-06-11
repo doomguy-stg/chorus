@@ -36,7 +36,7 @@ var consistencyCmd = &cobra.Command{
 	Use:   "consistency",
 	Short: "list consistency checks",
 	Long: `Example:
-chorctl consistency 87009fd62551da208508`,
+chorctl consistency`,
 	Run: func(cmd *cobra.Command, args []string) {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()

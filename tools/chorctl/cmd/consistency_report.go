@@ -32,7 +32,7 @@ import (
 )
 
 var consistencyReportCmd = &cobra.Command{
-	Use:   "consistency report <storage_1>:<bucket_1> <storage_2>:<bucket_2>",
+	Use:   "report",
 	Short: "list consistency checks",
 	Long: `Example:
 chorctl consistency report oldstorage:bucket newstorage:altbucket`,
